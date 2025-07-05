@@ -28,18 +28,13 @@ export function ServiceProvider({ children }: { children: React.ReactNode }) {
   const { user, session } = useAuth()
 
   useEffect(() => {
-    if (session) {
-      console.log('Session available, fetching data...')
-      fetchCategories()
-      fetchServices()
-      if (user) {
-        fetchBookings()
-      }
+    fetchCategories()
+    fetchServices()
+    if (session && user) {
+      fetchBookings()
     } else {
       console.log('No session, clearing data...')
-      setServices([])
       setBookings([])
-      setCategories([])
       setLoading(false)
     }
   }, [user, session])
@@ -139,7 +134,7 @@ export function ServiceProvider({ children }: { children: React.ReactNode }) {
 
   const createService = async (service: Omit<Service, 'id' | 'created_at' | 'updated_at'>) => {
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('services')
         .insert([service])
         .select()
@@ -191,7 +186,7 @@ export function ServiceProvider({ children }: { children: React.ReactNode }) {
 
   const createBooking = async (booking: Omit<Booking, 'id' | 'created_at' | 'updated_at'>) => {
     try {
-      const { data, error } = await supabase
+      const {error } = await supabase
         .from('bookings')
         .insert([booking])
         .select()
