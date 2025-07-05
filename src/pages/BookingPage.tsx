@@ -72,30 +72,6 @@ export default function BookingPage() {
     setLoading(true);
 
     try {
-      // const { error } = await createBooking({
-      //   service_id: service.id,
-      //   user_id: user.id,
-      //   provider_id: service.provider_id,
-      //   date: bookingData.date,
-      //   time: bookingData.time,
-      //   address: bookingData.address,
-      //   notes: bookingData.notes,
-      //   status: 'pending',
-      //   total_amount: service.price,
-      //   payment_method: bookingData.paymentMethod,
-      //   payment_status: 'pending'
-      // });
-
-      // if (error) {
-      //   throw error;
-      // }
-
-      // // Simulate payment processing
-      // await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // alert('বুকিং সফল হয়েছে! আপনার ড্যাশবোর্ডে যান।');
-      // navigate('/user-dashboard');
-
       const paymentPayload = {
         service_id: service.id,
         user_id: user.id,
@@ -106,7 +82,6 @@ export default function BookingPage() {
         notes: bookingData.notes,
         status: 'pending',
         total_amount: service.price,
-        payment_method: bookingData.paymentMethod,
         payment_status: 'completed'
       };
 
@@ -176,48 +151,7 @@ export default function BookingPage() {
               </div>
             </div>
 
-            <form onSubmit={handlePaymentSubmit}>
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-3">
-                  পেমেন্ট পদ্ধতি নির্বাচন করুন
-                </label>
-                <div className="grid grid-cols-2 gap-4">
-                  <label className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
-                    bookingData.paymentMethod === 'bkash' ? 'border-pink-500 bg-pink-50' : 'border-gray-200'
-                  }`}>
-                    <input
-                      type="radio"
-                      name="paymentMethod"
-                      value="bkash"
-                      checked={bookingData.paymentMethod === 'bkash'}
-                      onChange={(e) => setBookingData({ ...bookingData, paymentMethod: e.target.value })}
-                      className="sr-only"
-                    />
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-pink-600 mb-2">bKash</div>
-                      <p className="text-sm text-gray-600">মোবাইল ব্যাংকিং</p>
-                    </div>
-                  </label>
-
-                  <label className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
-                    bookingData.paymentMethod === 'nagad' ? 'border-orange-500 bg-orange-50' : 'border-gray-200'
-                  }`}>
-                    <input
-                      type="radio"
-                      name="paymentMethod"
-                      value="nagad"
-                      checked={bookingData.paymentMethod === 'nagad'}
-                      onChange={(e) => setBookingData({ ...bookingData, paymentMethod: e.target.value })}
-                      className="sr-only"
-                    />
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-orange-600 mb-2">Nagad</div>
-                      <p className="text-sm text-gray-600">ডিজিটাল পেমেন্ট</p>
-                    </div>
-                  </label>
-                </div>
-              </div>
-
+            <form onSubmit={handlePaymentSubmit}>             
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   মোবাইল নাম্বার
